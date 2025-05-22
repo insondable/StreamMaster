@@ -1,3 +1,12 @@
+## [0.14.1](https://github.com/carlreid/StreamMaster/compare/v0.14.0...v0.14.1) (2025-05-22)
+
+
+### Bug Fixes
+
+* Add API error handler ([8dc8bcd](https://github.com/carlreid/StreamMaster/commit/8dc8bcd2c71c1bbd4b3f96c9f611040257c6ada0))
+* Correct base URL to download images ([b8cb3f0](https://github.com/carlreid/StreamMaster/commit/b8cb3f093c547aca429cf64782597f3c3aca8e23))
+* Expose `SeriesPosterArt` setting ([a3314f7](https://github.com/carlreid/StreamMaster/commit/a3314f71f7761691cfd7614b0e0a49c3f4c8b24f))
+
 # [0.14.0](https://github.com/carlreid/StreamMaster/compare/v0.13.0...v0.14.0) (2025-05-06)
 
 
