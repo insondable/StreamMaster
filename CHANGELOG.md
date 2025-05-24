@@ -1,3 +1,10 @@
+# [0.15.0](https://github.com/carlreid/StreamMaster/compare/v0.14.1...v0.15.0) (2025-05-24)
+
+
+### Features
+
+* add <category> for schedules direct EPG ([aa17558](https://github.com/carlreid/StreamMaster/commit/aa1755869c433450e7b4e726809b53577f0192e7))
+
 ## [0.14.1](https://github.com/carlreid/StreamMaster/compare/v0.14.0...v0.14.1) (2025-05-22)
 
 
