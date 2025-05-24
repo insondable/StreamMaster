@@ -10,6 +10,6 @@ public static class ConfigureServices
             .AddSingleton<ISchedulesDirectAPIService, SchedulesDirectAPIService>()
             .AddSingleton<ISchedulesDirectRepository, SchedulesDirectRepository>()
             .AddSingleton<IApiErrorManager, ApiErrorManager>()
-            .AddSingleton<IHttpService, HttpService>();
+            .AddSingleton<ISchedulesDirectHttpService, SchedulesDirectHttpService>();
     }
 }

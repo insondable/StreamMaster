@@ -706,7 +706,7 @@ public class HttpServiceTests
     public async Task SendRequestAsync_SetsCorrectUserAgent()
     {
         // Arrange
-        var mockLogger = new Mock<ILogger<HttpService>>();
+        var mockLogger = new Mock<ILogger<SchedulesDirectHttpService>>();
         var mockSDSettings = new Mock<IOptionsMonitor<SDSettings>>();
         var mockDataRefreshService = new Mock<IDataRefreshService>();
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Loose);
@@ -754,7 +754,7 @@ public class HttpServiceTests
 
         mockHttpClientFactory.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
-        var service = new HttpService(
+        var service = new SchedulesDirectHttpService(
             mockHttpClientFactory.Object,
             mockLogger.Object,
             mockSDSettings.Object,
@@ -936,13 +936,13 @@ public class HttpServiceTests
     public void Constructor_WithNullApiErrorManager_ThrowsArgumentNullException()
     {
         // Arrange
-        var mockLogger = new Mock<ILogger<HttpService>>();
+        var mockLogger = new Mock<ILogger<SchedulesDirectHttpService>>();
         var mockSDSettings = new Mock<IOptionsMonitor<SDSettings>>();
         var mockDataRefreshService = new Mock<IDataRefreshService>();
         var mockHttpClientFactory = new Mock<IHttpClientFactory>();
 
         // Act & Assert
-        Should.Throw<ArgumentNullException>(() => new HttpService(
+        Should.Throw<ArgumentNullException>(() => new SchedulesDirectHttpService(
             mockHttpClientFactory.Object,
             mockLogger.Object,
             mockSDSettings.Object,
@@ -950,10 +950,10 @@ public class HttpServiceTests
             null!));
     }
 
-    private (HttpService service, SDSettings settings, Mock<IHttpClientFactory> mockHttpClientFactory, Mock<HttpMessageHandler> mockHttpMessageHandler, Mock<IDataRefreshService> mockDataRefreshService)
+    private (SchedulesDirectHttpService service, SDSettings settings, Mock<IHttpClientFactory> mockHttpClientFactory, Mock<HttpMessageHandler> mockHttpMessageHandler, Mock<IDataRefreshService> mockDataRefreshService)
         CreateServiceAndMocks(Mock<IApiErrorManager> mockApiErrorManager = default!)
     {
-        var mockLogger = new Mock<ILogger<HttpService>>();
+        var mockLogger = new Mock<ILogger<SchedulesDirectHttpService>>();
         var mockSDSettings = new Mock<IOptionsMonitor<SDSettings>>();
         var mockDataRefreshService = new Mock<IDataRefreshService>();
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Loose);
@@ -978,7 +978,7 @@ public class HttpServiceTests
 
         mockHttpClientFactory.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
-        var service = new HttpService(
+        var service = new SchedulesDirectHttpService(
             mockHttpClientFactory.Object,
             mockLogger.Object,
             mockSDSettings.Object,
@@ -988,11 +988,11 @@ public class HttpServiceTests
         return (service, sdSettings, mockHttpClientFactory, mockHttpMessageHandler, mockDataRefreshService);
     }
 
-    private void SetTokenProperties(HttpService service, string token = "test-token", bool goodToken = true, DateTime? timestamp = null)
+    private void SetTokenProperties(SchedulesDirectHttpService service, string token = "test-token", bool goodToken = true, DateTime? timestamp = null)
     {
-        var tokenProperty = typeof(HttpService).GetProperty("Token");
-        var goodTokenProperty = typeof(HttpService).GetProperty("GoodToken");
-        var tokenTimestampProperty = typeof(HttpService).GetProperty("TokenTimestamp");
+        var tokenProperty = typeof(SchedulesDirectHttpService).GetProperty("Token");
+        var goodTokenProperty = typeof(SchedulesDirectHttpService).GetProperty("GoodToken");
+        var tokenTimestampProperty = typeof(SchedulesDirectHttpService).GetProperty("TokenTimestamp");
 
         tokenProperty?.SetValue(service, token);
         goodTokenProperty?.SetValue(service, goodToken);

@@ -13,10 +13,10 @@ namespace StreamMaster.SchedulesDirect.Services;
 /// This HttpService is designed to work with the SchedulesDirect API.
 /// Documentation for the API can be found at: https://github.com/SchedulesDirect/JSON-Service/wiki/API-20141201
 /// </summary>
-public class HttpService : IHttpService, IDisposable
+public class SchedulesDirectHttpService : ISchedulesDirectHttpService, IDisposable
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger<HttpService> _logger;
+    private readonly ILogger<SchedulesDirectHttpService> _logger;
     private readonly IOptionsMonitor<SDSettings> _sdSettings;
     private readonly IDataRefreshService _dataRefreshService;
     private readonly IApiErrorManager _apiErrorManager;
@@ -28,9 +28,9 @@ public class HttpService : IHttpService, IDisposable
     public bool GoodToken { get; private set; }
     public bool IsReady => !_disposed && _sdSettings.CurrentValue.TokenErrorTimestamp < SMDT.UtcNow;
 
-    public HttpService(
+    public SchedulesDirectHttpService(
         IHttpClientFactory httpClientFactory,
-        ILogger<HttpService> logger,
+        ILogger<SchedulesDirectHttpService> logger,
         IOptionsMonitor<SDSettings> sdSettings,
         IDataRefreshService dataRefreshService,
         IApiErrorManager apiErrorManager)
@@ -46,7 +46,7 @@ public class HttpService : IHttpService, IDisposable
     {
         if (_disposed)
         {
-            throw new ObjectDisposedException(nameof(HttpService));
+            throw new ObjectDisposedException(nameof(SchedulesDirectHttpService));
         }
 
         if (!_sdSettings.CurrentValue.SDEnabled)
@@ -119,7 +119,7 @@ public class HttpService : IHttpService, IDisposable
     {
         if (_disposed)
         {
-            throw new ObjectDisposedException(nameof(HttpService));
+            throw new ObjectDisposedException(nameof(SchedulesDirectHttpService));
         }
 
         foreach (var code in SDHttpResponseCodeExtensions.GlobalCooldowns)
@@ -442,10 +442,10 @@ public class HttpService : IHttpService, IDisposable
     {
         if (_disposed)
         {
-            throw new ObjectDisposedException(nameof(HttpService));
+            throw new ObjectDisposedException(nameof(SchedulesDirectHttpService));
         }
 
-        var httpClient = _httpClientFactory.CreateClient(nameof(HttpService));
+        var httpClient = _httpClientFactory.CreateClient(nameof(SchedulesDirectHttpService));
 
         if (!string.IsNullOrEmpty(Token))
         {
