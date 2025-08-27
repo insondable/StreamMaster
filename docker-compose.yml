@@ -4,7 +4,7 @@ services:
   streammaster:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     ports:
       - 7095:80
       - 7096:443
@@ -17,4 +17,5 @@ services:
     volumes:
       - ~/.streammaster:/root/.streammaster
       - ~/.streammaster/tv-logos:/root/.streammaster/tv-logos
-      - ~/.streammaster/https:/https # put pfx here
+      - ~/.streammaster/https:/https
+
