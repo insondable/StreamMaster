@@ -3,9 +3,10 @@ version: '3.4'
 services:
   streammaster:
     image: ghcr.io/carlreid/streammaster:latest
-    build:
-      context: .
-      dockerfile: ./Dockerfile.sm.template
+build:
+  ´ context: .
+    dockerfile: ./Dockerfile
+
     ports:
       - 7095:80
       - 7096:443
