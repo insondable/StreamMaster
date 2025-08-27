@@ -72,7 +72,7 @@ public class VsController(ILogger<VsController> logger, IProfileService profileS
             HttpContext.Response.RegisterForDispose(new UnregisterClientOnDispose(channelService, streamResult.ClientConfiguration, logger));
             await streamResult.ClientConfiguration.ClientCompletionSource.Task.ConfigureAwait(false);
 
-            return new EmptyResult();
+             return Ok();
         }
         catch (Exception ex)
         {
