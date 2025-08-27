@@ -1,21 +1,43 @@
-version: '3.4'
+version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    container_name: streammaster_db
+    restart: always
+    environment:
+      POSTGRES_USER: streammaster
+      POSTGRES_PASSWORD: streammaster
+      POSTGRES_DB: StreamMaster
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   streammaster:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: streammaster_app
+    depends_on:
+      - db
     ports:
-      - 7095:80
-      - 7096:443
+      - "7095:80"
+      - "7096:443"
     environment:
       - STREAMMASTER_BASEHOSTURL=http://localhost:7095
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      # 👇 Cadena de conexión a PostgreSQL (usa el nombre del servicio "db")
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=StreamMaster;Username=streammaster;Password=streammaster
     volumes:
       - ~/.streammaster:/root/.streammaster
       - ~/.streammaster/tv-logos:/root/.streammaster/tv-logos
       - ~/.streammaster/https:/https
+
+volumes:
+  db_data:
+
 
